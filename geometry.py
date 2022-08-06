@@ -1,25 +1,40 @@
-
+import math
+from tkinter import Y
 
 class Point:
 
     def __init__(self, x_value, y_value):
         '''
-        Method to declare what instance variables this object will have
+        Method to declare what instance variables this object will have.
         '''
         # instance variables
         self.x = x_value # x -> attribute from the Point Class
         self.y = y_value # y_value -> argument value
          
-    def falls_in_rectangle(self, lowleft, upright):
+    def falls_in_rectangle(self, ractangle):
         '''
-        Class method to check if the point is inside a given rectangle
+        Class method to check if the point is inside a given rectangle.
         '''
-        if lowleft[0] < self.x < upright[0] \
-            and lowleft[1] < self.y < upright[1]:
-            return True
+        if  ractangle.lowleft.x < self.x < ractangle.upright.x \
+            and ractangle.lowleft.y < self.y < ractangle.upright.y:
+            return True 
         else:
             return False
 
+    def calculate_distance(self, point):
+        '''
+        Class method to calculate a distance from the objet point to a new
+        given point.
+        '''
+        distance = math.sqrt((point.x - self.x)**2 + (point.y - self.y)**2)
+        return distance
 
-point_1 = Point(1, 2) # instantiating a class -> creating an object
-print(point_1, type(point_1), point_1.falls_in_rectangle((6,6), (9,9)))
+
+class Rectangule:
+
+    def __init__(self, lowleft, upright):
+        self.lowleft = lowleft
+        self.upright = upright
+
+ 
+
