@@ -1,5 +1,5 @@
 import math
-from tkinter import Y
+import turtle
 
 class Point:
 
@@ -15,8 +15,8 @@ class Point:
         '''
         Class method to check if the point is inside a given rectangle.
         '''
-        if  ractangle.lowleft.x < self.x < ractangle.upright.x \
-            and ractangle.lowleft.y < self.y < ractangle.upright.y:
+        if  ractangle.point1.x < self.x < ractangle.point2.x \
+            and ractangle.point1.y < self.y < ractangle.point2.y:
             return True 
         else:
             return False
@@ -30,11 +30,63 @@ class Point:
         return distance
 
 
-class Rectangule:
+class Rectangle:
+ 
+    def __init__(self, point1, point2):
+        self.point1 = point1
+        self.point2 = point2
+ 
+    def area(self):
+        return (self.point2.x - self.point1.x) * \
+               (self.point2.y - self.point1.y)
 
-    def __init__(self, lowleft, upright):
-        self.lowleft = lowleft
-        self.upright = upright
+
+
+class GuiRectangle(Rectangle):
+    '''
+    Graph User Interface to draw the rectangle
+
+    GuiRectangle Class inheriting from the Rectangle Class. It inherits
+    the instances variables like points and also the methods from the 
+    inheriting Rectangle Class
+    '''
+
+    def draw(self, canvas):
+        '''
+        Class method to draw the rectangle o the screen
+        '''
+        canvas.penup()
+        canvas.goto(self.point1.x, self.point1.y) # Turn turtle by 90 degree
+        canvas.pendown()
+
+        # drawing first side
+        canvas.forward(self.point2.x - self.point1.x) # Forward turtle by l units
+        canvas.left(90) # Turn turtle by 90 degree
+
+        # drawing second side
+        canvas.forward(self.point2.y - self.point1.y) # Forward turtle by w units
+        canvas.left(90) # Turn turtle by 90 degree
+        
+        # drawing third side
+        canvas.forward(self.point2.x - self.point1.x) # Forward turtle by l units
+        canvas.left(90) # Turn turtle by 90 degree
+        
+        # drawing fourth side
+        canvas.forward(self.point2.y - self.point1.y) # Forward turtle by w units
+        canvas.left(90) # Turn turtle by 90 degree
+
+
+
+
+class GuiPoint(Point):
+
+    def draw(self, canvas, size=5, color='red'):
+        canvas.penup()
+        canvas.goto(self.x, self.y)
+        canvas.pendown()
+        canvas.dot(size, color)
+
+
 
  
 
